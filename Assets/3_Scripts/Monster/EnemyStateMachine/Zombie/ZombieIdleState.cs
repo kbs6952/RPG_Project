@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ZombieIdleState : EnemyState
 {
+    
     Enemy_Zombie enemy;
     public ZombieIdleState(Enemy _enemybase, EnemyStateMachine _stateMachine, string _animName,Enemy_Zombie _enemy) : base(_enemybase, _stateMachine, _animName)
     {
@@ -18,14 +19,23 @@ public class ZombieIdleState : EnemyState
     public override void Exit()
     {
         base.Exit();
+        Debug.Log("Idle »óÅÂ ÅğÀå");
     }
     public override void Update()
     {
         base.Update();
 
+        Transform target = enemy.SearchTarget();
+        if(target)
+        {
+            if(enemy.IsAvailableAttack)
+            {
+                stateMachine.ChangeState(enemy.attackState);
+            }
+        }
         if(stateTimer <= 0)
         {
-            stateMachine.ChangeState();
+            stateMachine.ChangeState(enemy.IdleState);
         }
     }
 }

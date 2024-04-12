@@ -11,6 +11,7 @@ public class EnemyState
 {
     protected EnemyStateMachine stateMachine;
     protected Enemy enemyBase;
+    
 
     private string animName;
 

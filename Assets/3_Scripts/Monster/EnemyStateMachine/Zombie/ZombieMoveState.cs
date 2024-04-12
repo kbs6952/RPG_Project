@@ -20,14 +20,23 @@ public class ZombieMoveState : EnemyState
     {
         base.Exit();
         Debug.Log("Move 상태 종료");
+        enemy.agent.ResetPath();
     }
     public override void Update()
     {
         base.Update();
-
-        if (stateTimer <= 0)
+        Transform target = enemy.SearchTarget();
+        if(target)
         {
-            stateMachine.ChangeState();
+            enemy.agent.SetDestination(target.position);
+        }
+        else
+        {
+            stateMachine.ChangeState(enemy.IdleState);
+        }
+        if(enemy.IsAvailableAttack)
+        {
+            stateMachine.ChangeState(enemy.attackState);
         }
     }
 }
